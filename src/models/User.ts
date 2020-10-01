@@ -13,10 +13,12 @@ const Schema = new mongoose.Schema({
     },
     email: {
         type: String,
+        unique: true,
         required: true
     },
     whatsapp: {
         type: String,
+        unique: true,
         required: true
     },
     keyPasswordRecovery: {
@@ -30,7 +32,7 @@ const Schema = new mongoose.Schema({
     }
 })
 
-interface user extends mongoose.Document {
+export interface user extends mongoose.Document {
     name: string
     password: string
     email: string
@@ -43,5 +45,5 @@ Schema.pre<user>('save', async function () {
     this.password  = await bcrypt.hash(this.password, 10)
 })
 
-const User = mongoose.model('User', Schema)
+const User = mongoose.model<user>('User', Schema)
 export default User

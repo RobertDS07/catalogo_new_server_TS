@@ -1,9 +1,9 @@
 type Query {
-    login(email: String!, password: String!): User!
+    login(email: String!, password: String!): String!
 }
 
 type Mutation{
-    createUser(data: CreateUserInput): User!
+    createUser(data: CreateUserInput): String!
 
 }
 
@@ -12,13 +12,4 @@ input CreateUserInput {
     password: String!
     email: String!
     whatsapp: String!
-}
-
-type User {
-    name: String!
-    password: String!
-    email: String!
-    whatsapp: String!
-    admin: Boolean!
-    token: String!
 }
