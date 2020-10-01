@@ -1,6 +1,7 @@
 type Query {
-    products(sort:sort, cursor: Int!): [Product!]!
+    products(sort:sort, cursor:String, limit:Int!): [Product!]!
     product(_id:ID!): Product!
+    categories: [String]
 }
 
 type Mutation {

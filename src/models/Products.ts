@@ -29,28 +29,18 @@ const Schema = new mongoose.Schema({
     },
     description: {
         type: String,
-    },
-    cursor: {
-        type: Number
     }
 })
-
-interface product extends mongoose.Document {
+// ADICIONAR UMA PARTE PARA DESTAQUES
+export interface product extends mongoose.Document {
     fotourl: string
     name: string
     price: number
     size: string
     category: string
-    description: string
-    cursor: number
+    description?: string
 }
 
-const Product = mongoose.model('Produto', Schema)
-
-Schema.pre<product>('save', async function () {
-    const product = await Product.find({})
-
-    product.length <= 10 ? this.cursor = 10 : this.cursor = parseInt(String((product.length/10)+10)) 
-})
+const Product = mongoose.model<product>('Produto', Schema)
 
 export default Product

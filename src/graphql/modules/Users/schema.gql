@@ -1,5 +1,6 @@
 type Query {
     login(email: String!, password: String!): String!
+    verifyToken(token: String!): Boolean
 }
 
 type Mutation{

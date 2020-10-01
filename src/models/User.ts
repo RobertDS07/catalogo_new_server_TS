@@ -37,8 +37,8 @@ export interface user extends mongoose.Document {
     password: string
     email: string
     whatsapp: string
-    keyPasswordRecovery: string
-    admin: boolean
+    keyPasswordRecovery?: string
+    admin?: boolean
 }
 
 Schema.pre<user>('save', async function () {

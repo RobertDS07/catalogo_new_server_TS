@@ -5,7 +5,8 @@ import Users, { user } from '../../../models/User'
 import { createUser, login } from './types'
 
 import verifyData from '../../utils/verifyData'
-import createJwt from '../../utils/createJwt'
+import verifyToken from '../../utils/verifyToken'
+import createToken from '../../utils/createToken'
 
 
 export const resolvers = {
@@ -24,10 +25,11 @@ export const resolvers = {
 
             if (!!alredyExist) throw new Error('Já temos um registro com essas credencias em nosso sistema.')
 
-            const newUser = await Users.create<Omit<user, 'keyPasswordRecovery' | 'admin'>>(data)
+            const newUser = await Users.create(data)
+            
             newUser.password = ''
 
-            const token = createJwt<user>(newUser, '365d')
+            const token = createToken<user>(newUser, '365d')
 
             return token
         } catch (e) {
@@ -36,17 +38,26 @@ export const resolvers = {
     },
     login: async ({ password, email }: login) => {
         try {
+            verifyData<login>({ password, email })
+
             const user = await Users.findOne({ email }).select('+password')
 
-            if (!user || ! await bcrypt.compare(password, user.password)) throw new Error('Credenciais invalidas')
+            if (!user || ! await bcrypt.compare(password, user.password)) throw new Error('Credenciais invalidas.')
 
             user.password = ''
 
-            const token = createJwt<user>(user, '365d')
+            const token = createToken<user>(user, '365d')
 
             return token
         } catch (e) {
             return e
         }
+    },
+    verifyToken: async ({ token }: { token: string }) => {
+        const validToken = await verifyToken(token)
+
+        if (!validToken) return false
+
+        return true
     }
 }
