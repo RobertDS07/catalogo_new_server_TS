@@ -6,7 +6,7 @@ type Query {
 
 type Mutation {
     createProduct(token: String!, data: CreateProductInput): Boolean!
-    updateProduct(token: String!, data: CreateProductInput): Boolean!
+    updateProduct(token: String!, data: UpdateProductInput, _id:String!): Boolean!
     deleteProduct(token: String!, _id: ID!): Boolean!
 }
 
@@ -16,6 +16,15 @@ input CreateProductInput {
     price: Float!
     size: String!
     category: String!
+    description: String
+}
+
+input UpdateProductInput {
+    fotourl: String
+    name: String
+    price: Float
+    size: String
+    category: String
     description: String
 }
 

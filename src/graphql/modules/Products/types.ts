@@ -16,6 +16,24 @@ export interface createProduct {
     }
 }
 
+export interface updateProduct {
+    token: string
+    _id: string
+    data: {
+        fotourl?: string
+        name?: string
+        price?: number
+        size?: string
+        category?: string
+        description?: string
+    }
+}
+
+export interface deleteProduct {
+    token: string
+    _id: string
+}
+
 export interface decodedToken {
     user: {
         admin: Boolean,
