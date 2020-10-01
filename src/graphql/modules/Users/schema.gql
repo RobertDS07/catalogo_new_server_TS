@@ -1,0 +1,24 @@
+type Query {
+    login(email: String!, password: String!): User!
+}
+
+type Mutation{
+    createUser(data: CreateUserInput): User!
+
+}
+
+input CreateUserInput {
+    name: String!
+    password: String!
+    email: String!
+    whatsapp: String!
+}
+
+type User {
+    name: String!
+    password: String!
+    email: String!
+    whatsapp: String!
+    admin: Boolean!
+    token: String!
+}
