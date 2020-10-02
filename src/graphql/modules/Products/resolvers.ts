@@ -6,9 +6,9 @@ import verifyData from '../../utils/verifyData'
 import verifyToken from '../../utils/verifyToken'
 
 export const resolvers = {
-    products: async ({ sort, cursor, limit}: products) => {
+    products: async ({ sort, cursor, limit, search}: products) => {
         try {
-            // if (!search) search = ''
+            if (!search) search = ''
 
             // const products = !!cursor ? !sort ? await Products.find({ name: { $regex: search } }).sort('category').limit(limit) : await Products.find({ name: { $regex: search } }).sort({ price: sort }).limit(limit) : !sort ? await Products.find({ name: { $regex: search } }).sort('category').limit(limit) : await Products.find(({ name: { $regex: search } })).sort({ price: sort }).limit(limit)
             const products = !!cursor ? !sort ? await Products.find({ $and: [{ name: { $regex: search } }, { _id: { $gt: cursor } }] }).sort('category').limit(limit) : await Products.find({ $and: [{ name: { $regex: search } }, { _id: { $gt: cursor } }] }).sort({ price: sort }).limit(limit) : !sort ? await Products.find({ name: { $regex: search } }).sort('category').limit(limit) : await Products.find(({ name: { $regex: search } })).sort({ price: sort }).limit(limit)
