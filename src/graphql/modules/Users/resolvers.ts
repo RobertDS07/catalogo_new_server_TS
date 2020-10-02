@@ -56,8 +56,8 @@ export const resolvers = {
     verifyToken: async ({ token }: { token: string }) => {
         const validToken = await verifyToken(token)
 
-        if (!validToken) return false
+        if (!validToken) return 
 
-        return true
+        return validToken.user
     }
 }
