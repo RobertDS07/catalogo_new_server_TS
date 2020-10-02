@@ -6,11 +6,19 @@ import verifyData from '../../utils/verifyData'
 import verifyToken from '../../utils/verifyToken'
 
 export const resolvers = {
-    products: async ({ sort, cursor, limit }: products) => {
+    products: async ({ sort, cursor, limit}: products) => {
         try {
-            const products = !!cursor ? !sort ? await Products.find({ _id: { $gt: cursor } }).limit(limit) : await Products.find({ _id: { $gt: cursor } }).sort({ price: sort }).limit(limit) : !sort ? await Products.find().limit(limit) : await Products.find().sort({ price: sort }).limit(limit)
+            // if (!search) search = ''
+
+            // const products = !!cursor ? !sort ? await Products.find({ name: { $regex: search } }).sort('category').limit(limit) : await Products.find({ name: { $regex: search } }).sort({ price: sort }).limit(limit) : !sort ? await Products.find({ name: { $regex: search } }).sort('category').limit(limit) : await Products.find(({ name: { $regex: search } })).sort({ price: sort }).limit(limit)
+            const products = !!cursor ? !sort ? await Products.find({ $and: [{ name: { $regex: search } }, { _id: { $gt: cursor } }] }).sort('category').limit(limit) : await Products.find({ $and: [{ name: { $regex: search } }, { _id: { $gt: cursor } }] }).sort({ price: sort }).limit(limit) : !sort ? await Products.find({ name: { $regex: search } }).sort('category').limit(limit) : await Products.find(({ name: { $regex: search } })).sort({ price: sort }).limit(limit)
 
             if (!products) throw new Error('Ooops, houve algo de errado. Tente novamente mais tarde.')
+
+            // if (cursor === 0) products.splice(10)
+
+            // console.log(products);
+            
 
             return products
         } catch (e) {

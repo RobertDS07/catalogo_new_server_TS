@@ -1,5 +1,5 @@
 type Query {
-    products(sort:sort, cursor:String, limit:Int!): [Product!]!
+    products(sort:sort, cursor:String, limit:Int!, search: String): [Product!]!
     product(_id:ID!): Product!
     categories: [String]
 }
@@ -8,6 +8,21 @@ type Mutation {
     createProduct(token: String!, data: CreateProductInput): Boolean!
     updateProduct(token: String!, data: UpdateProductInput, _id:String!): Boolean!
     deleteProduct(token: String!, _id: ID!): Boolean!
+}
+
+type Product {
+    _id:ID
+    fotourl: String
+    name: String
+    price: Float
+    size: String
+    description: String
+    category: String
+}
+
+enum sort {
+    asc
+    desc
 }
 
 input CreateProductInput {
@@ -26,20 +41,4 @@ input UpdateProductInput {
     size: String
     category: String
     description: String
-}
-
-type Product {
-    _id:ID
-    fotourl: String
-    name: String
-    price: Float
-    size: String
-    description: String
-    category: String
-    cursor: Int
-}
-
-enum sort {
-    asc
-    desc
 }
