@@ -9,7 +9,9 @@ export const resolvers = {
     products: async ({ sort, cursor, limit, search}: products) => {
         try {
             if (!search) search = ''
-
+// LÓGICA
+// Caso não tenha um cursor na req eu deixo vázio e faço a requisição normal, pego os produtos que o user quer e dou um updateMany (em todos) mudando o cursor deles para cursor X
+//lanço esse produtos já com o cursor e caso eu faça outra requisição com os mesmos parametros eu pego todos os itens que não contenham o cursor X, e claro isso tudo com o .limit(limit)
             // const products = !!cursor ? !sort ? await Products.find({ name: { $regex: search } }).sort('category').limit(limit) : await Products.find({ name: { $regex: search } }).sort({ price: sort }).limit(limit) : !sort ? await Products.find({ name: { $regex: search } }).sort('category').limit(limit) : await Products.find(({ name: { $regex: search } })).sort({ price: sort }).limit(limit)
             const products = !!cursor ? !sort ? await Products.find({ $and: [{ name: { $regex: search } }, { _id: { $gt: cursor } }] }).sort('category').limit(limit) : await Products.find({ $and: [{ name: { $regex: search } }, { _id: { $gt: cursor } }] }).sort({ price: sort }).limit(limit) : !sort ? await Products.find({ name: { $regex: search } }).sort('category').limit(limit) : await Products.find(({ name: { $regex: search } })).sort({ price: sort }).limit(limit)
 
