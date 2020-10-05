@@ -1,7 +1,7 @@
 export interface products {
     sort?: string
-    cursor?: string
     search?: string
+    skip?: number
     limit: number
 }
 

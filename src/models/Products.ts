@@ -27,6 +27,11 @@ const Schema = new mongoose.Schema({
         lowercase: true,
         required: true
     },
+    cursor: {
+        type: [String],
+        trim: true,
+        lowercase: true
+    },
     description: {
         type: String,
     }
@@ -39,6 +44,7 @@ export interface product extends mongoose.Document {
     size: string
     category: string
     description?: string
+    cursor?: string[]
 }
 
 const Product = mongoose.model<product>('Produto', Schema)
