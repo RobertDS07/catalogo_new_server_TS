@@ -2,6 +2,7 @@ export interface products {
     sort?: string
     search?: string
     skip?: number
+    category?: string
     limit: number
 }
 

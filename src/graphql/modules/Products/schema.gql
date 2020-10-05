@@ -1,5 +1,5 @@
 type Query {
-    products(sort:sort, skip:Int, limit:Int!, search: String): [Product!]!
+    products(sort:sort, skip:Int, limit:Int!, search: String, category: String): [Product!]!
     product(_id:ID!): Product!
     categories: [String]
 }

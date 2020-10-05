@@ -6,12 +6,12 @@ import verifyData from '../../utils/verifyData'
 import verifyToken from '../../utils/verifyToken'
 
 export const resolvers = {
-    products: async ({ sort, skip, limit, search }: products) => {
+    products: async ({ sort, skip, limit, search, category }: products) => {
         try {
             if (!search) search = ''
             if (!skip) skip = 0
 
-            const products = !sort ? await Products.find({ name: { $regex: search } }).skip(skip).sort('category').limit(limit) : await Products.find(({ name: { $regex: search } })).sort({ price: sort }).skip(skip).limit(limit)
+            const products = !category ? !sort ? await Products.find({ name: { $regex: search } }).skip(skip).sort('category').limit(limit) : await Products.find(({ name: { $regex: search } })).sort({ price: sort }).skip(skip).limit(limit) : !sort ? await Products.find({ $and: [{name: {$regex: search}}, {category}]}).skip(skip).sort('category').limit(limit) : await Products.find({ $and: [{name: {$regex: search}}, {category}]}).sort({ price: sort }).skip(skip).limit(limit)
 
             if (!products) throw new Error('Ooops, houve algo de errado. Tente novamente mais tarde.')
 
