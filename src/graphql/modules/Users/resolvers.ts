@@ -38,7 +38,7 @@ export const resolvers = {
     },
     login: async ({ password, email }: login) => {
         try {
-            verifyData<login>({ password, email })
+            verifyData<login>({ email, password })
 
             const user = await Users.findOne({ email }).select('+password')
 

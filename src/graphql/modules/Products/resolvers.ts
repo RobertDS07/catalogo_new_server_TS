@@ -38,7 +38,7 @@ export const resolvers = {
 
             const createdProduct = await Products.create(data)
 
-            if (!createdProduct) throw new Error('Houve algum problema na hora de cadastrar, tente novament.')
+            if (!createdProduct) throw new Error('Houve algum problema na hora de cadastrar, tente novamente.')
 
             return true
         } catch (e) {
