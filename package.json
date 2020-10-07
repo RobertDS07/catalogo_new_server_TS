@@ -7,7 +7,6 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "build": "tsc",
     "start": "node dist/index.js"
   },
   "dependencies": {
