@@ -10,8 +10,7 @@ const app = express()
 app.use(cors())
 app.use('/graphql', graphqlHTTP({
     schema,
-    rootValue,
-    graphiql: true
+    rootValue
 }))
 
 export default app
