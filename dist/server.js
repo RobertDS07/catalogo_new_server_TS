@@ -12,7 +12,6 @@ const app = express_1.default();
 app.use(cors_1.default());
 app.use('/graphql', express_graphql_1.graphqlHTTP({
     schema: schemas_1.default,
-    rootValue: resolvers_1.default,
-    graphiql: true
+    rootValue: resolvers_1.default
 }));
 exports.default = app;
